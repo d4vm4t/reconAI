@@ -38,6 +38,19 @@ def ShowBanner():
     # Mostrar en pantalla
     print(f"\n{separador}\n{centered_banner}\n{subtitulo_1}\n\n{subtitulo_2}\n{subtitulo_3}\n\n{separador}\n")
 
+#Verifica si la IP objetivo esta activa
+def CheckConnection(target_ip):
+    result = subprocess.run(
+        ["timeout", "2", "bash", "-c", f"ping -c 1 {target_ip}"],
+        stdout = subprocess.DEVNULL,
+        stderr = subprocess.DEVNULL
+    )
+
+    if result.returncode != 0:
+        print(f"\n\n[!] La IP {target_ip} no está activa o no se puede establecer la conexión\n[!] Cancelando escaneo\n")
+        sys.exit(1)
+
+
 # Ejecuta el escaneo Nmap sobre la IP indicada
 def NmapScan(target_ip, nmap_file):
     print(f"\n\n[+] Iniciando escaneo a {target_ip}...\n")
@@ -214,18 +227,19 @@ def main():
     if len(sys.argv) != 2:
         print(f"\n\n[+] Uso: python3 {sys.argv[0]} <IP_objetivo>\n")
         sys.exit(1)
-
-    ShowBanner()
-    
+       
     target_ip = sys.argv[1]
     results_folder = "results"
+
+    ShowBanner()
+    CheckConnection(target_ip)
     nmap_file = ScanResponse(results_folder, target_ip)    
 
-    # Precargamos el modelo de IA 
+    # Precarga el modelo de IA 
     preload_thread = threading.Thread(target=PreloadModel)
     preload_thread.start()
 
-    # Iniciamos escaneo con nmap
+    # Inicia escaneo con nmap
     NmapScan(target_ip, nmap_file)
   
     # Espera a que cargue el modelo
