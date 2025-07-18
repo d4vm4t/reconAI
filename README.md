@@ -1,8 +1,5 @@
 # ReconAI
-**Reconocimiento ofensivo asisitdo por IA**
-
-## ¿Qué es reconAI?
-`reconAI` es una herramienta que automatiza la fase de reconocimiento ofensivo mediante un escaneo avanzado con `nmap`, extrayendo información clave (sistema operativo, servicios, versiones) y generando un análisis técnico mediante IA (modelo Mistral) para ayudar al pentester a continuar con la fase de enumeración y explotación de forma estructurada y eficaz.
+`reconAI` es una herramienta que automatiza la fase de **reconocimiento ofensivo** mediante un escaneo avanzado con `nmap`, extrayendo información clave (sistema operativo, servicios, versiones) y generando un **análisis técnico mediante IA** (modelo Mistral) para ayudar al pentester a continuar con la fase de enumeración y explotación de forma estructurada y eficaz.
 
 ## Requisitos
 - Python 3.x
@@ -32,12 +29,22 @@ python3 reconAI.py <IP_objetivo>
 ```
 Ejemplo:
 ```bash
-python3 reconAI.py 10.10.10.123
-```
+python3 reconAI.py 192.168.1.53
+```  
+<br>
+<p align="center">
+<img src="images/1.png"
+  alt="Primera"/>
+</p>
+
+<p align="center">
+<img src="images/2.png"
+  alt="Primera"/>
+</p>
 
 Al finalizar el escaneo se generarán dos archivos diferentes almacenados en la carpeta `results`:
 - La captura de Nmap: `nmap_<IP>_<timestamp>.txt`
 - La guía técnica generada por la IA: `ia_recommendations_<IP>_<timestamp>.md`
 
-## Model IA
-Este proyecto utiliza el modelo de Inteligencia Artifical Mistral vía Ollama para interpretar y ofrecer sugerencias técnicas ofensivas en formato Markdown. La estructura de salida está formada por herramientas, vectores de ataque y consideraciones específicas para cada servicio identificado.
+## Modelo IA
+Este proyecto utiliza el modelo de Inteligencia Artifical **Mistral vía Ollama** para interpretar y ofrecer sugerencias técnicas ofensivas en formato Markdown. La [estructura de salida](https://github.com/d4vm4t/reconAI/blob/main/ejemplo_respuesta.md) está formada por herramientas, vectores de ataque y consideraciones específicas para cada servicio identificado.
